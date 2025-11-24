@@ -1,0 +1,108 @@
+library(MCMCglmm)
+# 读取模型
+modelKsai_zipoisson_full   <- readRDS("modelKsai_zipoisson_full.rds")
+modelKsai_nb               <- readRDS("modelKsai_nb.rds")
+modelKsai_NonCoo           <- readRDS("modelKsai_NonCoo.rds")
+modelKsai_nb_NonCoo        <- readRDS("modelKsai_nb_NonCoo.rds")
+modelKsai_Coo              <- readRDS("modelKsai_Coo.rds")
+modelKsai_nb_Coo           <- readRDS("modelKsai_nb_Coo.rds")
+modelKsai_population       <- readRDS("modelKsai_population.rds")
+modelKsai_nb_population    <- readRDS("modelKsai_nb_population.rds")
+modelrecruits_full         <- readRDS("modelrecruits_full.rds")
+modelrecruits_nb_full      <- readRDS("modelrecruits_nb_full.rds")
+model_OffSurFle                 <- readRDS("model_OffSurFle.rds")
+model_OffSurFle_helped          <- readRDS("model_OffSurFle_helped.rds")
+model_OffSurFle_nonhelped       <- readRDS("model_OffSurFle_nonhelped.rds")
+model_SurRecr                   <- readRDS("model_SurRecr.rds")
+model_SurRecr_helped            <- readRDS("model_SurRecr_helped.rds")
+model_SurRecr_nonhelped         <- readRDS("model_SurRecr_nonhelped.rds")
+modelKsai_nb_Coo_simple         <- readRDS("modelKsai_nb_Coo_simple.rds")
+modelKsai_nb_NonCoo_simple      <- readRDS("modelKsai_nb_NonCoo_simple.rds")
+modelrecruits_NonCoo       <- readRDS("modelrecruits_NonCoo.rds")
+modelrecruits_Coo          <- readRDS("modelrecruits_Coo.rds")
+modelrecruits_population   <- readRDS("modelrecruits_population.rds")
+modelrecruits_CoopPrecip   <- readRDS("modelrecruits_CoopPrecip.rds")
+model_adult_full           <- readRDS("model_adult_full.rds")
+model_adult_Non            <- readRDS("model_adult_Non.rds")
+model_adult_Coo            <- readRDS("model_adult_Coo.rds")
+model_adult_population     <- readRDS("model_adult_population.rds")
+model_adult_CooNonCoo      <- readRDS("model_adult_CooNonCoo.rds")
+modelbroodsize_full        <- readRDS("modelbroodsize_full.rds")
+modelbroodsize_noncoop     <- readRDS("modelbroodsize_noncoop.rds")
+modelbroodsize_coop        <- readRDS("modelbroodsize_coop.rds")
+modelbroodsize_population  <- readRDS("modelbroodsize_population.rds")
+modelbroodsize_CooNonCoo   <- readRDS("modelbroodsize_CooNonCoo.rds")
+modeloffspring_full        <- readRDS("modeloffspring_full.rds")
+modeloffspring_noncoop     <- readRDS("modeloffspring_noncoop.rds")
+modeloffspring_coop        <- readRDS("modeloffspring_coop.rds")
+modeloffspring_population  <- readRDS("modeloffspring_population.rds")
+modeloffspring_CooNonCoo   <- readRDS("modeloffspring_CooNonCoo.rds")
+
+# 定义一个用于诊断的函数
+diagnose_model <- function(model, model_name) {
+  cat("\n\n===== Model:", model_name, "=====\n")
+  
+  # 固定效应链图
+  plot(model$Sol, col = 1)
+  
+  # 随机效应链图
+  plot(model$VCV, col = 2)
+  
+  # 自相关图
+  autocorr.plot(model$Sol)
+  autocorr.plot(model$VCV)
+  
+  # Heidelberger & Welch 收敛诊断
+  cat("\nHeidelberger & Welch Diagnostic - Fixed Effects:\n")
+  print(heidel.diag(model$Sol))
+  
+  cat("\nHeidelberger & Welch Diagnostic - Random Effects:\n")
+  print(heidel.diag(model$VCV))
+  
+  # 有效样本量
+  cat("\nEffective Sample Size - Fixed Effects:\n")
+  print(effectiveSize(model$Sol))
+  
+  cat("\nEffective Sample Size - Random Effects:\n")
+  print(effectiveSize(model$VCV))
+}
+
+# 调用函数对每个模型进行诊断
+diagnose_model(modelKsai_zipoisson_full,   "modelKsai_zipoisson_full")
+diagnose_model(modelKsai_nb,               "modelKsai_nb")
+diagnose_model(modelKsai_NonCoo,           "modelKsai_NonCoo")
+diagnose_model(modelKsai_nb_NonCoo,        "modelKsai_nb_NonCoo")
+diagnose_model(modelKsai_Coo,              "modelKsai_Coo")
+diagnose_model(modelKsai_nb_Coo,           "modelKsai_nb_Coo")
+diagnose_model(modelKsai_population,       "modelKsai_population")
+diagnose_model(modelKsai_nb_population,    "modelKsai_nb_population")
+diagnose_model(modelrecruits_full,         "modelrecruits_full")
+diagnose_model(modelrecruits_nb_full,      "modelrecruits_nb_full")
+diagnose_model(model_OffSurFle,            "model_OffSurFle")
+diagnose_model(model_OffSurFle_helped,     "model_OffSurFle_helped")
+diagnose_model(model_OffSurFle_nonhelped,  "model_OffSurFle_nonhelped")
+diagnose_model(model_SurRecr,              "model_SurRecr")
+diagnose_model(model_SurRecr_helped,       "model_SurRecr_helped")
+diagnose_model(model_SurRecr_nonhelped,    "model_SurRecr_nonhelped")
+diagnose_model(modelKsai_nb_Coo_simple,    "modelKsai_nb_Coo_simple")
+diagnose_model(modelKsai_nb_NonCoo_simple, "modelKsai_nb_NonCoo_simple")
+diagnose_model(modelrecruits_NonCoo,       "modelrecruits_NonCoo")
+diagnose_model(modelrecruits_Coo,          "modelrecruits_Coo")
+diagnose_model(modelrecruits_population,   "modelrecruits_population")
+diagnose_model(modelrecruits_CoopPrecip,   "modelrecruits_CoopPrecip")
+diagnose_model(model_adult_full,          "model_adult_full")
+diagnose_model(model_adult_Non,           "model_adult_Non")
+diagnose_model(model_adult_Coo,           "model_adult_Coo")
+diagnose_model(model_adult_population,    "model_adult_population")
+diagnose_model(model_adult_CooNonCoo,     "model_adult_CooNonCoo")
+diagnose_model(modelbroodsize_full,        "modelbroodsize_full")
+diagnose_model(modelbroodsize_noncoop,     "modelbroodsize_noncoop")
+diagnose_model(modelbroodsize_coop,        "modelbroodsize_coop")
+diagnose_model(modelbroodsize_population,  "modelbroodsize_population")
+diagnose_model(modelbroodsize_CooNonCoo,   "modelbroodsize_CooNonCoo")
+diagnose_model(modeloffspring_full,        "modeloffspring_full")
+diagnose_model(modeloffspring_noncoop,     "modeloffspring_noncoop")
+diagnose_model(modeloffspring_coop,        "modeloffspring_coop")
+diagnose_model(modeloffspring_population,  "modeloffspring_population")
+diagnose_model(modeloffspring_CooNonCoo,   "modeloffspring_CooNonCoo")
+
