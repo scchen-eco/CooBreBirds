@@ -669,3 +669,71 @@ cleaned_result <- final_result %>%
 Adult_SurRandpre_Coo<- cleaned_result
 dim(Adult_SurRandpre_Coo) #有效数据量为0。
 # saveRDS(final_result, file = "Adult_SurRandpre_Coo_final_result_list.rds")
+
+####可视化模型的窗口
+files_rds <- c(
+  "Adult_SurRandpre.rds",
+  "Adult_SurRandpre_Coo.rds",
+  "Adult_SurRandpre_Coo_final_result_list.rds",
+  "Adult_SurRandtmp.rds",
+  "Adult_SurRandtmp_Coo.rds",
+  "Adult_SurWinpre.rds",
+  "Adult_SurWinpre_Coo.rds",
+  "Adult_SurWintmp.rds",
+  "Adult_SurWintmp_Coo.rds",
+  "Broodsize_Pre.rds",
+  "Broodsize_Pre_Coo.rds",
+  "Broodsize_RandPre.rds",
+  "Broodsize_RandPre_Coo.rds",
+  "Broodsize_RandTmp.rds",
+  "Broodsize_RandTmp_Coo.rds",
+  "Broodsize_Tmp.rds",
+  "Broodsize_Tmp_Coo.rds",
+  "Offs_SurRandpre.rds",
+  "Offs_SurRandpre_Coo.rds",
+  "Offs_SurRandtmp.rds",
+  "Offs_SurRandtmp_Coo.rds",
+  "Offs_SurWinpre.rds",
+  "Offs_SurWinpre_Coo.rds",
+  "Offs_SurWintmp.rds",
+  "Offs_SurWintmp_Coo.rds"
+)
+#读取其中之一进行查看
+Adult_SurWintmp_Coo <- readRDS("Adult_SurWintmp_Coo.rds")
+
+head(Adult_SurWintmp_Coo[[1]]$Dataset) #查看模型排序
+medwin(Adult_SurWintmp_Coo[[1]]$Dataset) #总结所有可能的模型
+BroodsizeOutput<-Adult_SurWintmp_Coo[[1]]$Dataset
+#可视化窗口
+plotdelta(dataset = BroodsizeOutput)
+plotweights(dataset = BroodsizeOutput)
+plotwin(dataset = BroodsizeOutput)
+
+
+Offs_SurWintmp_Coo <- readRDS("Offs_SurWintmp_Coo.rds")
+
+head(Offs_SurWintmp_Coo[[1]]$Dataset) #查看模型排序
+medwin(Offs_SurWintmp_Coo[[1]]$Dataset) #总结所有可能的模型
+BroodsizeOutput<-Offs_SurWintmp_Coo[[1]]$Dataset
+#可视化窗口
+plotdelta(dataset = BroodsizeOutput)
+plotweights(dataset = BroodsizeOutput)
+plotwin(dataset = BroodsizeOutput)
+
+Broodsize_Pre_Coo <- readRDS("Broodsize_Pre_Coo.rds")
+
+head(Broodsize_Pre_Coo[[1]]$Dataset) #查看模型排序
+medwin(Broodsize_Pre_Coo[[1]]$Dataset) #总结所有可能的模型
+BroodsizeOutput<-Broodsize_Pre_Coo[[1]]$Dataset
+#可视化窗口
+plotdelta(dataset = BroodsizeOutput)
+plotweights(dataset = BroodsizeOutput)
+plotwin(dataset = BroodsizeOutput)
+
+
+
+
+
+
+
+
